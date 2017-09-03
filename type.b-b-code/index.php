@@ -25,5 +25,5 @@ To::plug('bbcode', function($input) {
 From::plug('b_b_code', 'From::bbcode');
 To::plug('b_b_code', 'To::bbcode');
 
-Hook::set('page.title', 'fn_b_b_code_span', 2);
-Hook::set(['page.description', 'page.content'], 'fn_b_b_code', 2);
+Hook::set('*.title', 'fn_b_b_code_span', 2);
+Hook::set(['*.description', '*.content'], 'fn_b_b_code', 2);

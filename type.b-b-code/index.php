@@ -1,29 +1,27 @@
 <?php
 
-function fn_b_b_code($content, $lot = [], $that) {
-    if ($that->get('type') !== 'BBCode') {
-        return $content;
+namespace _\type\b_b_code {
+    function i($content) {
+        return \t(\_\type\b_b_code($content), '<p>', '</p>');
     }
-    $x = new BBCode;
-    $x->addCodeDefinitionSet(new JBBCode\DefaultCodeDefinitionSet());
-    return str_replace("\n", '<br>', n($x->parse($content)->getAsHtml()));
+    \Hook::set('*.title', __NAMESPACE__ "\\i", 2);
 }
 
-function fn_b_b_code_span($content, $lot = []) {
-    return t(fn_b_b_code($content, $lot), '<p>', '</p>');
+namespace _\type {
+    function b_b_code($content) {
+        if ($this['type'] !== 'BBCode') {
+            return $content;
+        }
+        $parser = new \BBCode;
+        $parser->addCodeDefinitionSet(new \JBBCode\DefaultCodeDefinitionSet());
+        return \str_replace("\n", '<br>', \n($parser->parse($content)->getAsHtml()));
+    }
+    \Hook::set([
+        '*.content',
+        '*.description'
+    ], __NAMESPACE__ . "\\b_b_code", 2);
 }
 
-From::_('BBCode', function($input) {
-    return fn_b_b_code($input, ['type' => 'BBCode']);
-});
-
-To::_('BBCode', function($input) {
-    return $input; // TODO
-});
-
-// alias(es)
-From::_('bbcode', 'From::BBCode');
-To::_('bbcode', 'To::BBCode');
-
-Hook::set('*.title', 'fn_b_b_code_span', 2);
-Hook::set(['*.description', '*.content'], 'fn_b_b_code', 2);
+namespace {
+    require __DIR__ . DS . 'engine' . DS . 'i' . DS . 'Parser.php';
+}

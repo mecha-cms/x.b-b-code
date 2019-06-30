@@ -3,7 +3,7 @@ title: Type: BBCode
 description: Add type “BBCode” support.
 author: Taufik Nurrohman
 type: Markdown
-version: 0.0.2
+version: 0.1.0
 ...
 
 Convert BBCode syntax to HTML.

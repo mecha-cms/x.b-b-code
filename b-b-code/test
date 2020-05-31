@@ -1,0 +1,92 @@
+Lorem ipsum dolor sit amet :)
+
+Lorem ipsum dolor sit amet.
+Lorem ipsum dolor sit amet.
+
+Lorem ipsum dolor [b][i]bold-italic[/i][/b] sit amet.
+
+Lorem ipsum [i]dolor[/i] sit amet.
+
+Lorem ipsum [s]dolor[/s] sit amet.
+
+Lorem ipsum [u]dolor[/u] sit amet.
+
+Lorem ipsum [b]broken[/i] sit amet.
+
+Lorem ipsum [b][i]broken[/b][/i] sit amet.
+
+[code]
+function foo() {
+    // Preserve [b] and :) here
+    return 'bar';
+}
+[/code]
+
+Lorem ipsum dolor sit amet.
+
+[quote]
+Lorem ipsum dolor sit amet.
+Lorem ipsum dolor sit amet.
+
+Lorem ipsum dolor sit amet.
+[/quote]
+
+Lorem ipsum dolor sit amet.
+
+:cool: :grin: :hmm: :lol: :mad: :rolleyes: :sad: :smile: :straight: :tongue: :wink: :yikes:
+
+B) B-)
+
+:D :-D
+
+:/ :-/ :\ :-\
+
+x( x-( X( X-(
+
+:( :-( :'( :'-(
+
+:) :-)
+
+:| :-|
+
+:p :-p :P :-P
+
+;) ;-)
+
+:o :-o :O :-O
+
+Lorem ipsum dolor sit amet.
+
+<script>
+alert('Yo!');
+</script>
+
+[list]
+* Lorem ipsum dolor sit amet.
+* Lorem ipsum dolor sit amet.
+* Lorem ipsum dolor sit amet.
+[/list]
+
+[list]
+[*] Lorem ipsum dolor sit amet.
+[*] Lorem ipsum dolor sit amet.
+[*] Lorem ipsum dolor sit amet.
+[/list]
+
+[list]
+[*]Lorem ipsum dolor sit amet.[/*]
+[*]Lorem ipsum dolor sit amet.[/*]
+[*]Lorem ipsum dolor sit amet.[/*]
+[/list]
+
+[list=1]
+* Lorem ipsum dolor sit amet.
+* Lorem ipsum dolor sit amet.
+* Lorem ipsum dolor sit amet.
+[/list]
+
+[list=4]
+* Lorem ipsum dolor sit amet.
+* Lorem ipsum dolor sit amet.
+* Lorem ipsum dolor sit amet.
+[/list]

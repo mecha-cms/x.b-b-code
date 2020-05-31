@@ -4,7 +4,6 @@ BBCode Extension for Mecha
 Release Notes
 -------------
 
-### x.x.x
+### 1.0.0
 
- - Refactor.
- - Remove external dependencies. BBCode syntax is easy enough to be parsed using simple regular expression.
+ - Initial stable release.

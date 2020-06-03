@@ -3,7 +3,7 @@ title: BBCode
 description: Convert BBCode syntax to HTML.
 author: Taufik Nurrohman
 type: Markdown
-version: 1.0.0
+version: 1.0.1
 
 use:
   '.\lot\x\page': 1
@@ -13,7 +13,7 @@ use:
 
 BBCode was implemented as method of providing a safer and easier way of allowing posts to be formatted on forums. Before BBCode forums sometimes allowed users to include HTML code in their posts, which had many security issues (i.e. the user could execute JavaScript code, break the layout of the site and so on). With BBCode being parsed by the forum scripts, it is easier to control what the user can do and can not do (allowing or not allowing specific BBCode tags).
 
-This extension generates semantic HTML code. Your site will be safe. All HTML code will be encoded in the output, whether it is written outside the code block or inside the code block, without exception.
+This extension generates semantic HTML markup. Your site will be safe. All HTML code will be encoded in the output, whether it is written outside the code block or inside the code block, without exception.
 
 ### Usage
 
@@ -98,8 +98,6 @@ Several variant syntaxes for lists are available for compatibility reasons.
 &#x5B;/list&#x5D;</code></pre>
 
 #### Quote
-
-Nesting quotes is not possible at this time.
 
 <pre><code class="bbcode">&#x5B;quote&#x5D;
 Important quote goes here…

@@ -1,3 +1,9 @@
+---
+title: BBCode Syntax
+description: BBCode syntax test.
+type: BBCode
+...
+
 Lorem ipsum dolor sit amet :)
 
 Lorem ipsum dolor sit amet.
@@ -26,6 +32,19 @@ Lorem ipsum dolor sit amet.
 
 [quote]
 Lorem ipsum dolor sit amet.
+Lorem ipsum dolor sit amet.
+
+Lorem ipsum dolor sit amet.
+[/quote]
+
+[quote]
+Lorem ipsum dolor sit amet.
+[quote]
+Lorem ipsum dolor sit amet.
+Lorem ipsum dolor sit amet.
+[quote]Foo bar baz.[/quote]
+Lorem ipsum dolor sit amet.
+[/quote]
 Lorem ipsum dolor sit amet.
 
 Lorem ipsum dolor sit amet.

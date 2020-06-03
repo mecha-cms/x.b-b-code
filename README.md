@@ -4,6 +4,11 @@ BBCode Extension for Mecha
 Release Notes
 -------------
 
+### 1.0.1
+
+ - It is now possible to recurse the `[quote]` elements.
+ - Added page type field with a value of `BBCode` for [panel](https://github.com/mecha-cms/x.panel) extension.
+
 ### 1.0.0
 
  - Initial stable release.

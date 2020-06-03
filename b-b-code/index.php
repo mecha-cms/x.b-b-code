@@ -40,14 +40,11 @@ namespace _\lot\x {
             }
             if (false !== \strpos($content, '[')) {
                 // Parse `[b]`, `[i]`, `[s]` and `[u]` element
-                $content = \preg_replace_callback('/\[([bisu])\](.*?)\[\/\1\]/', function($m) {
+                $span_any = '/\[([bisu])\](.*?)\[\/\1\]/';
+                $span_any_task = function($m) use(&$span_any, &$span_any_task) {
                     if (false !== \strpos($m[2], '[')) {
                         // Recurse inline element(s)!
-                        $m[2] = \strtr(\fire(__NAMESPACE__ . "\\b_b_code", [$m[2]], (object) ['type' => 'BBCode']), [
-                            '<br>' => ' ',
-                            '<p>' => "",
-                            '</p>' => ""
-                        ]);
+                        $m[2] = \preg_replace_callback($span_any, $span_any_task, $m[2]);
                     }
                     $t = ([
                         'b' => 'strong',
@@ -56,7 +53,8 @@ namespace _\lot\x {
                         'u' => 'ins'
                     ])[$m[1]] ?? "";
                     return $t ? '<' . $t . '>' . $m[2] . '</' . $t . '>' : $m[0];
-                }, $content);
+                };
+                $content = \preg_replace_callback($span_any, $span_any_task, $content);
                 // Parse `[img]` element
                 if (false !== \strpos($content, '[/img]')) {
                     $content = \preg_replace_callback('/\[img\](' . $test . ')\[\/img\]/u', function($m) {
@@ -85,8 +83,15 @@ namespace _\lot\x {
                 }
                 // Parse `[quote]` element
                 if (false !== \strpos($content, '[/quote]')) {
-                    $content = \preg_replace('/\[quote\]\n*([\s\S]*?)\n*\[\/quote\]/', '<blockquote>$1</blockquote>', $content);
-                    // $content = \preg_replace('/\[quote=([^\]]+)\](.*?)\[\/quote\]/', '$0', $content);
+                    $block_quote = '/\[quote(=[^\s\]]+)?\]\n*(((?R)|[\s\S])*?)\n*\[\/quote\]/';
+                    $block_quote_task = function($m) use(&$block_quote, &$block_quote_task) {
+                        if (false !== \strpos($m[2], '[/quote]')) {
+                            // Recurse!
+                            $m[2] = \preg_replace_callback($block_quote, $block_quote_task, $m[2]);
+                        }
+                        return '<blockquote' . (empty($m[1]) ? "" : 'title="' . \htmlspecialchars($m[1], \ENT_COMPAT | \ENT_HTML5, 'UTF-8', false) . '"') . '>' . $m[2] . '</blockquote>';
+                    };
+                    $content = \preg_replace_callback($block_quote, $block_quote_task, $content);
                 }
                 // Parse `[url]` element
                 if (false !== \strpos($content, '[/url]')) {
@@ -96,16 +101,18 @@ namespace _\lot\x {
             }
             // Convert line-break sequence into paragraph
             $content = '<p>' . \strtr($content, [
+                '<blockquote>' => '<blockquote><p>',
+                '</blockquote>' => '</p></blockquote>',
                 "\n\n" => '</p><p>',
                 "\n" => '<br>'
             ]) . '</p>';
             // Clean-up…
             $content = \strtr($content, [
-                '<p><blockquote>' => '<blockquote><p>',
-                '</blockquote></p>' => '</p></blockquote>'
-            ]);
-            // Clean-up…
-            $content = \strtr($content, [
+                '<p><blockquote>' => '<blockquote>',
+                '</blockquote></p>' => '</blockquote>',
+                '<br><blockquote>' => '</p><blockquote>',
+                '</blockquote><br>' => '</blockquote><p>',
+                '<p><ol>' => '<ol>',
                 '<p><ol>' => '<ol>',
                 '</ol></p>' => '</ol>',
                 '<p><pre>' => '<pre>',
@@ -114,7 +121,7 @@ namespace _\lot\x {
                 '</ul></p>' => '</ul>'
             ]);
             // Parse smiley pattern outside of HTML tag(s) and code block!
-            $parse = function($in) {
+            $smiley_task = function($in) {
                 $dir = \To::URL(__DIR__ . \DS . 'lot' . \DS . 'asset' . \DS . 'png');
                 $r = [];
                 foreach ([
@@ -154,7 +161,7 @@ namespace _\lot\x {
                     }
                     $content .= $part;
                 } else {
-                    $content .= $parse($part);
+                    $content .= $smiley_task($part);
                 }
             }
         }

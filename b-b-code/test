@@ -23,7 +23,7 @@ Lorem ipsum [b][i]broken[/b][/i] sit amet.
 
 [code]
 function foo() {
-    // Preserve [b] and :) here
+    // Preserve [b]text[/b] and :) here
     return 'bar';
 }
 [/code]

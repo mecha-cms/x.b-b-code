@@ -4,6 +4,10 @@ BBCode Extension for Mecha
 Release Notes
 -------------
 
+### 1.0.2
+
+ - Removed automatic paragraph tags around page description data.
+
 ### 1.0.1
 
  - It is now possible to recurse the `[quote]` elements.

@@ -3,7 +3,7 @@ title: BBCode
 description: Convert BBCode syntax to HTML.
 author: Taufik Nurrohman
 type: Markdown
-version: 1.0.1
+version: 1.0.2
 
 use:
   '.\lot\x\page': 1
@@ -114,7 +114,7 @@ This extension supports a small set of smiley graphics to enhance the appearance
 
 <pre><code class="bbcode">:<span>cool</span>: :<span>grin</span>: :<span>hmm</span>: :<span>lol</span>: :<span>mad</span>: :<span>rolleyes</span>: :<span>sad</span>: :<span>smile</span>: :<span>straight</span>: :<span>tongue</span>: :<span>wink</span>: :<span>yikes</span>:</code></pre>
 
-<pre><code class="bbcode">B<span></span>) B<span></span>-)
+<pre><code class="bbcode">8<span></span>) 8<span></span>-) B<span></span>) B<span></span>-)
 
 :<span></span>D :<span></span>-D
 

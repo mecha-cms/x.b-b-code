@@ -3,7 +3,7 @@ title: BBCode
 description: Convert BBCode syntax to HTML.
 author: Taufik Nurrohman
 type: Markdown
-version: 1.0.2
+version: 1.1.0
 
 use:
   '.\lot\x\page': 1

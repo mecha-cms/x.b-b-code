@@ -1,7 +1,7 @@
 <?php
 
-namespace _\lot\x\b_b_code {
-    function inline($content) {
+namespace x\BBCode {
+    function span($content) {
         $type = $this->type;
         if ('BBCode' !== $type && 'text/bbcode' !== $type) {
             return $content;
@@ -11,11 +11,11 @@ namespace _\lot\x\b_b_code {
     \Hook::set([
         'page.description',
         'page.title' // Inline tag(s) only
-    ], __NAMESPACE__ . "\\inline", 2);
+    ], __NAMESPACE__ . "\\span", 2);
 }
 
-namespace _\lot\x {
-    function b_b_code($content) {
+namespace x {
+    function BBCode($content) {
         $type = $this->type;
         if ('BBCode' !== $type && 'text/bbcode' !== $type) {
             return $content;
@@ -167,5 +167,5 @@ namespace _\lot\x {
     }
     \Hook::set([
         'page.content'
-    ], __NAMESPACE__ . "\\b_b_code", 2);
+    ], __NAMESPACE__ . "\\BBCode", 2);
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace x\BBCode {
+namespace x\b_b_code {
     function span($content) {
         $type = $this->type;
         if ('BBCode' !== $type && 'text/bbcode' !== $type) {
@@ -15,7 +15,7 @@ namespace x\BBCode {
 }
 
 namespace x {
-    function BBCode($content) {
+    function b_b_code($content) {
         $type = $this->type;
         if ('BBCode' !== $type && 'text/bbcode' !== $type) {
             return $content;
@@ -167,5 +167,5 @@ namespace x {
     }
     \Hook::set([
         'page.content'
-    ], __NAMESPACE__ . "\\BBCode", 2);
+    ], __NAMESPACE__ . "\\b_b_code", 2);
 }

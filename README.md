@@ -1,5 +1,5 @@
-BBCode Extension for Mecha
-==========================
+BBCode Extension for [Mecha](https://github.com/mecha-cms/mecha)
+================================================================
 
 Release Notes
 -------------

@@ -26,7 +26,7 @@ namespace x {
         $content = \htmlspecialchars(\n($content), \ENT_COMPAT | \ENT_HTML5, 'UTF-8', false);
         // Parse `[code]` element before everything else!
         if (false !== \strpos($content, '[/code]')) {
-            $content = \preg_replace_callback('/\[code(=[\w-:.]+)?\]\n*([\s\S]*?)\n*\[\/code\]/', function($m) {
+            $content = \preg_replace_callback('/\[code(=[\w-:.]+)?\]\n*([\s\S]*?)\n*\[\/code\]/', static function($m) {
                 $m[2] = \strtr($m[2], [
                     // Convert line-break into hard-break so they won’t be converted into paragraph
                     "\n" => '<br>',
@@ -40,7 +40,7 @@ namespace x {
         if (false !== \strpos($content, '[')) {
             // Parse `[b]`, `[i]`, `[s]` and `[u]` element
             $span_any = '/\[([bisu])\](.*?)\[\/\1\]/';
-            $span_any_task = function($m) use(&$span_any, &$span_any_task) {
+            $span_any_task = static function($m) use(&$span_any, &$span_any_task) {
                 if (false !== \strpos($m[2], '[')) {
                     // Recurse inline element(s)!
                     $m[2] = \preg_replace_callback($span_any, $span_any_task, $m[2]);
@@ -56,7 +56,7 @@ namespace x {
             $content = \preg_replace_callback($span_any, $span_any_task, $content);
             // Parse `[img]` element
             if (false !== \strpos($content, '[/img]')) {
-                $content = \preg_replace_callback('/\[img\](' . $test . ')\[\/img\]/u', function($m) {
+                $content = \preg_replace_callback('/\[img\](' . $test . ')\[\/img\]/u', static function($m) {
                     // Validate image URL extension
                     $x = \strtolower(\pathinfo($m[1], \PATHINFO_EXTENSION));
                     if (false === \strpos(',apng,gif,jpeg,jpg,png,svg,webp,', ',' . $x . ',')) {
@@ -67,7 +67,7 @@ namespace x {
             }
             // Parse `[list]` element
             if (false !== \strpos($content, '[/list]')) {
-                $content = \preg_replace_callback('/\[list(=\d+)?\]\n*([\s\S]*?)\n*\[\/list\]/', function($m) {
+                $content = \preg_replace_callback('/\[list(=\d+)?\]\n*([\s\S]*?)\n*\[\/list\]/', static function($m) {
                     $i = empty($m[1]) ? "" : \substr($m[1], 1);
                     $i = \is_numeric($i) ? (float) $i : $i;
                     $any = \is_float($i) ? 'ol' . ($i > 1 ? ' start="' . $i . '"' : "") : 'ul';
@@ -83,7 +83,7 @@ namespace x {
             // Parse `[quote]` element
             if (false !== \strpos($content, '[/quote]')) {
                 $block_quote = '/\[quote(=[^\s\]]+)?\]\n*((?:(?R)|[\s\S]*?))\n*\[\/quote\]/';
-                $block_quote_task = function($m) use(&$block_quote, &$block_quote_task) {
+                $block_quote_task = static function($m) use(&$block_quote, &$block_quote_task) {
                     if (false !== \strpos($m[2], '[/quote]')) {
                         // Recurse!
                         $m[2] = \preg_replace_callback($block_quote, $block_quote_task, $m[2]);
@@ -120,8 +120,8 @@ namespace x {
             '</ul></p>' => '</ul>'
         ]);
         // Parse smiley pattern outside of HTML tag(s) and code block!
-        $smiley_task = function($in) {
-            $dir = \To::URL(__DIR__ . \DS . 'lot' . \DS . 'asset' . \DS . 'png');
+        $smiley_task = static function($in) {
+            $dir = \To::URL(__DIR__ . \D . 'lot' . \D . 'asset');
             $r = [];
             foreach ([
                 'cool' => ['8)', '8-)', 'B)', 'B-)'],

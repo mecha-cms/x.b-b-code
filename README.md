@@ -12,6 +12,10 @@ BBCode was implemented as method of providing a safer and easier way of allowing
 Release Notes
 -------------
 
+### 2.0.0
+
+ - Updated for Mecha 3.0.0.
+
 ### 1.1.0
 
  - [@mecha-cms/mecha#96](https://github.com/mecha-cms/mecha/issues/96)

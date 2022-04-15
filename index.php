@@ -121,7 +121,7 @@ namespace x {
         ]);
         // Parse smiley pattern outside of HTML tag(s) and code block!
         $smiley_task = static function($in) {
-            $dir = \To::URL(__DIR__ . \D . 'lot' . \D . 'asset');
+            $dir = \To::URL(__DIR__);
             $r = [];
             foreach ([
                 'cool' => ['8)', '8-)', 'B)', 'B-)'],

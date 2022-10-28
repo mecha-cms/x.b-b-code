@@ -2,11 +2,22 @@
 
 namespace x\b_b_code {
     function span($content) {
+        if (!$content) {
+            return $content;
+        }
         $type = $this->type;
         if ('BBCode' !== $type && 'text/bbcode' !== $type) {
             return $content;
         }
-        return \trim(\strip_tags(\fire(__NAMESPACE__, [$content], $this), '<a><br><del><em><img><ins><strong>'));
+        return \trim(\strip_tags(\fire(__NAMESPACE__, [$content], $this), [
+            'a',
+            'br',
+            'del',
+            'em',
+            'img',
+            'ins',
+            'strong'
+        ]));
     }
     \Hook::set([
         'page.description',
@@ -16,6 +27,9 @@ namespace x\b_b_code {
 
 namespace x {
     function b_b_code($content) {
+        if (!$content) {
+            return $content;
+        }
         $type = $this->type;
         if ('BBCode' !== $type && 'text/bbcode' !== $type) {
             return $content;
@@ -26,7 +40,7 @@ namespace x {
         $content = \htmlspecialchars(\n($content), \ENT_COMPAT | \ENT_HTML5, 'UTF-8', false);
         // Parse `[code]` element before everything else!
         if (false !== \strpos($content, '[/code]')) {
-            $content = \preg_replace_callback('/\[code(=[\w-:.]+)?\]\n*([\s\S]*?)\n*\[\/code\]/', static function ($m) {
+            $content = \preg_replace_callback('/\[code(=[-.:\w]+)?\]\n*([\s\S]*?)\n*\[\/code\]/', static function ($m) {
                 $m[2] = \strtr($m[2], [
                     // Convert line-break into hard-break so they won’t be converted into paragraph
                     "\n" => '<br>',
@@ -82,7 +96,7 @@ namespace x {
             }
             // Parse `[quote]` element
             if (false !== \strpos($content, '[/quote]')) {
-                $block_quote = '/\[quote(=[^\s\]]+)?\]\n*((?:(?R)|[\s\S]*?))\n*\[\/quote\]/';
+                $block_quote = '/\[quote(=[^\s\]]+)?\]\n*((?:(?R)|[\s\S])*?)\n*\[\/quote\]/';
                 $block_quote_task = static function ($m) use (&$block_quote, &$block_quote_task) {
                     if (false !== \strpos($m[2], '[/quote]')) {
                         // Recurse!
@@ -140,12 +154,12 @@ namespace x {
                 $v = (array) $v;
                 $v[] = ':' . $k . ':'; // Add `:name:` syntax
                 foreach ($v as $vv) {
-                    $r[$vv] = '<img alt="' . $vv . '" height="15" src="' . $dir . '/' . $k . '.png" style="display: inline; vertical-align: middle;" width="15">';
+                    $r[$vv] = '<img alt="' . $vv . '" height="15" src="' . $dir . '/' . $k . '.png" style="display: inline-block; vertical-align: middle;" width="15">';
                 }
             }
             return \strtr($in, $r);
         };
-        $parts = \preg_split('/(<pre(?:\s[^>]*)?><code(?:\s[^>]*)?>[\s\S]*?<\/code><\/pre>|<[^>]+>)/', $content, null, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE);
+        $parts = \preg_split('/(<pre(?:\s[^>]*)?><code(?:\s[^>]*)?>[\s\S]*?<\/code><\/pre>|<[^>]+>)/', $content, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE);
         $content = ""; // Reset!
         foreach ($parts as $part) {
             if ($part && '<' === $part[0] && \substr($part, -1) === '>') {
@@ -168,4 +182,10 @@ namespace x {
     \Hook::set([
         'page.content'
     ], __NAMESPACE__ . "\\b_b_code", 2);
+}
+
+namespace {
+    if (\defined("\\TEST") && 'x.b-b-code' === \TEST) {
+        require __DIR__ . \D . 'test.php';
+    }
 }

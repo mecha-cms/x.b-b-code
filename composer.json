@@ -1,0 +1,8 @@
+{
+  "description": "Convert BBCode syntax to HTML.",
+  "license": "GPL-3.0-or-later",
+  "name": "mecha-cms/x.b-b-code",
+  "require": {
+    "mecha-cms/x.page": "^2.0.0"
+  }
+}

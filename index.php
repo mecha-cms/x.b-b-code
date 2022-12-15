@@ -185,7 +185,7 @@ namespace x {
 }
 
 namespace {
-    if (\defined("\\TEST") && 'x.b-b-code' === \TEST) {
-        require __DIR__ . \D . 'test.php';
+    if (\defined("\\TEST") && 'x.b-b-code' === \TEST && \is_file($test = __DIR__ . \D . 'test.php')) {
+        require $test;
     }
 }

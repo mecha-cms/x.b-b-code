@@ -2,6 +2,7 @@
 title: BBCode
 description: Converts BBCode syntax to HTML.
 icon: 'M12.04,2.5L9.53,5H14.53L12.04,2.5M4,7V20H20V7H4M12,0L17,5V5H20A2,2 0 0,1 22,7V20A2,2 0 0,1 20,22H4A2,2 0 0,1 2,20V7A2,2 0 0,1 4,5H7V5L12,0M7,18V14H12V18H7M14,17V10H18V17H14M6,12V9H11V12H6Z'
+color: '#0f709d'
 author: Taufik Nurrohman
 type: Markdown
 version: 2.0.0
@@ -10,11 +11,18 @@ use:
   '.\lot\x\page': 1
 ...
 
-[BBCode](https://www.bbcode.org) is short for Bulletin Board Code. It is used as a way for formatting posts made on message boards, blogs and more. It is similar to HTML in the sense that in BBCode one does also use tags to format something specific (contained within the tag). In BBCode, tags are indicated by rectangular brackets surrounding a keyword, which is in turn transformed into HTML before being delivered to a web browser.
+[BBCode](https://www.bbcode.org) is short for Bulletin Board Code. It is used as a way for formatting posts made on
+message boards, blogs and more. It is similar to HTML in the sense that in BBCode one does also use tags to format
+something specific (contained within the tag). In BBCode, tags are indicated by rectangular brackets surrounding a
+keyword, which is in turn transformed into HTML before being delivered to a web browser.
 
-BBCode was implemented as method of providing a safer and easier way of allowing posts to be formatted on forums. Before BBCode forums sometimes allowed users to include HTML code in their posts, which had many security issues (i.e. the user could execute JavaScript code, break the layout of the site and so on). With BBCode being parsed by the forum scripts, it is easier to control what the user can do and can not do (allowing or not allowing specific BBCode tags).
+BBCode was implemented as method of providing a safer and easier way of allowing posts to be formatted on forums. Before
+BBCode forums sometimes allowed users to include HTML code in their posts, which had many security issues (i.e. the user
+could execute JavaScript code, break the layout of the site and so on). With BBCode being parsed by the forum scripts,
+it is easier to control what the user can do and can not do (allowing or not allowing specific BBCode tags).
 
-This extension generates semantic HTML markup. Your site will be safe. All HTML code will be encoded in the output, whether it is written outside the code block or inside the code block, without exception.
+This extension generates semantic HTML markup. Your site will be safe. All HTML code will be encoded in the output,
+whether it is written outside the code block or inside the code block, without exception.
 
 ### Usage
 
@@ -31,7 +39,8 @@ This is a &#x5B;b&#x5D;bold&#x5B;/b&#x5D; text :)</code></pre>
 
 ### Syntax
 
-Here are the supported syntax. I deliberately did not include the <code>&#x5B;color&#x5D;</code> and <code>&#x5B;size&#x5D;</code> syntax in this extension because it is too complex and makes the text unpleasant to read.
+Here are the supported syntax. I intentionally did not include the <code>&#x5B;color&#x5D;</code> and
+<code>&#x5B;size&#x5D;</code> syntax in this extension because it is too complex and makes the text unpleasant to read.
 
 #### Bold, Italic, Strike and Underline Text
 
@@ -40,13 +49,16 @@ Here are the supported syntax. I deliberately did not include the <code>&#x5B;co
 &#x5B;s&#x5D;strike&#x5B;/s&#x5D;
 &#x5B;u&#x5D;underline&#x5B;/u&#x5D;</code></pre>
 
-Nesting is possible, but it won’t be as accurate as when using native HTML elements. In some cases, your syntax combination might damage each other.
+Nesting is possible, but it won’t be as accurate as when using native HTML elements. In some cases, your syntax
+combination might damage each other.
 
 <pre><code class="bbcode">&#x5B;b&#x5D;&#x5B;i&#x5D;bold and italic&#x5B;/i&#x5D;&#x5B;/b&#x5D;</code></pre>
 
 #### Code
 
-BBCode syntax and smiley patterns written in the code block will not be touched by the parser. Language classes are supported on this extension to be combined with [highlight](https://github.com/mecha-cms/x.highlight) extension and such.
+BBCode syntax and smiley patterns written in the code block will not be touched by the parser. Language classes are
+supported on this extension to be combined with [highlight](https://github.com/mecha-cms/x.highlight) extension and
+such.
 
 <pre><code class="bbcode">&#x5B;code&#x5D;
 Code goes here…
@@ -58,13 +70,15 @@ JavaScript code goes here…
 
 #### Image
 
-For security reasons, this syntax will only display images when the image URL has an `.apng`, `.gif`, `.jpeg`, `.jpg`, `.png`, `.svg` or `.webp` extension at the end of the name.
+For security reasons, this syntax will only display images when the image URL has an `.apng`, `.gif`, `.jpeg`, `.jpg`,
+`.png`, `.svg` or `.webp` extension at the end of the name.
 
 <pre><code class="bbcode">&#x5B;img&#x5D;http://127.0.0.1/path/to/image.jpg&#x5B;/img&#x5D;</code></pre>
 
 #### List
 
-Add a number to turn the list into an ordered list. A given number greater than `1` will create a `start` attribute with a value of that number added to the generated `<ol>` element. Nesting lists is not possible at this time.
+Add a number to turn the list into an ordered list. A given number greater than `1` will create a `start` attribute with
+a value of that number added to the generated `<ol>` element. Nesting lists is not possible at this time.
 
 <pre><code class="bbcode">&#x5B;list&#x5D;
 * List item 1
@@ -111,7 +125,8 @@ Important quote goes here…
 
 #### Smiley
 
-This extension supports a small set of smiley graphics to enhance the appearance without making them look excessive. No smiley code will be converted into images if it’s written in the HTML tags or in code blocks.
+This extension supports a small set of smiley graphics to enhance the appearance without making them look excessive. No
+smiley code will be converted into images if it’s written in the HTML tags or in code blocks.
 
 <pre><code class="bbcode">:<span>cool</span>: :<span>grin</span>: :<span>hmm</span>: :<span>lol</span>: :<span>mad</span>: :<span>rolleyes</span>: :<span>sad</span>: :<span>smile</span>: :<span>straight</span>: :<span>tongue</span>: :<span>wink</span>: :<span>yikes</span>:</code></pre>
 

@@ -155,13 +155,6 @@ namespace x\b_b_code\page {
         return $content;
     }
     function description($description) {
-        if (!$description) {
-            return $description;
-        }
-        $type = $this->type;
-        if ('BBCode' !== $type && 'text/bbcode' !== $type) {
-            return $description;
-        }
         return \fire(__NAMESPACE__ . "\\title", [$description], $this);
     }
     function title($title) {

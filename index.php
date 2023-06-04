@@ -1,32 +1,7 @@
 <?php
 
-namespace x\b_b_code {
-    function span($content) {
-        if (!$content) {
-            return $content;
-        }
-        $type = $this->type;
-        if ('BBCode' !== $type && 'text/bbcode' !== $type) {
-            return $content;
-        }
-        return \trim(\strip_tags(\fire(__NAMESPACE__, [$content], $this), [
-            'a',
-            'br',
-            'del',
-            'em',
-            'img',
-            'ins',
-            'strong'
-        ]));
-    }
-    \Hook::set([
-        'page.description',
-        'page.title' // Inline tag(s) only
-    ], __NAMESPACE__ . "\\span", 2);
-}
-
-namespace x {
-    function b_b_code($content) {
+namespace x\b_b_code\page {
+    function content($content) {
         if (!$content) {
             return $content;
         }
@@ -179,9 +154,38 @@ namespace x {
         }
         return $content;
     }
-    \Hook::set([
-        'page.content'
-    ], __NAMESPACE__ . "\\b_b_code", 2);
+    function description($description) {
+        if (!$description) {
+            return $description;
+        }
+        $type = $this->type;
+        if ('BBCode' !== $type && 'text/bbcode' !== $type) {
+            return $description;
+        }
+        return \fire(__NAMESPACE__ . "\\title", [$description], $this);
+    }
+    function title($title) {
+        if (!$title) {
+            return $title;
+        }
+        $type = $this->type;
+        if ('BBCode' !== $type && 'text/bbcode' !== $type) {
+            return $title;
+        }
+        return \trim(\strip_tags(\fire(__NAMESPACE__ . "\\content", [$title], $this), [
+            'a',
+            'br',
+            'del',
+            'em',
+            'img',
+            'ins',
+            'strong'
+        ]));
+    }
+    \Hook::set('page.content', __NAMESPACE__ . "\\content", 2);
+    // Inline tag(s) only
+    \Hook::set('page.description', __NAMESPACE__ . "\\description", 2);
+    \Hook::set('page.title', __NAMESPACE__ . "\\title", 2);
 }
 
 namespace {

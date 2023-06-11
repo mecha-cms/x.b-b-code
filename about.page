@@ -18,8 +18,8 @@ BBCode forums sometimes allowed users to include HTML code in their posts, which
 could execute JavaScript code, break the layout of the site and so on). With BBCode being parsed by the forum scripts,
 it is easier to control what the user can do and can not do (allowing or not allowing specific BBCode tags).
 
-This extension generates semantic HTML markup. Your site will be safe. All HTML code will be encoded in the output,
-whether it is written outside the code block or inside the code block, without exception.
+This extension generates semantic HTML markup. Your site will be secure. All HTML code will be encoded in the output, no
+matter if it is written inside or outside the code block, without exception.
 
 ### Usage
 
@@ -36,26 +36,27 @@ This is a &#x5B;b&#x5D;bold&#x5B;/b&#x5D; text :)</code></pre>
 
 ### Syntax
 
-Here are the supported syntax. I intentionally did not include the <code>&#x5B;color&#x5D;</code> and
-<code>&#x5B;size&#x5D;</code> syntax in this extension because it is too complex and makes the text unpleasant to read.
+Here are the supported syntaxes. I intentionally did not include the <code>&#x5B;color&#x5D;</code>,
+<code>&#x5B;size&#x5D;</code>, and other decorative syntax in this extension because it is too complex and makes the
+text unpleasant to read.
 
-#### Bold, Italic, Strike and Underline Text
+#### Bold, Italic, Strike and Underline
 
 <pre><code class="bbcode">&#x5B;b&#x5D;bold&#x5B;/b&#x5D;
 &#x5B;i&#x5D;italic&#x5B;/i&#x5D;
 &#x5B;s&#x5D;strike&#x5B;/s&#x5D;
 &#x5B;u&#x5D;underline&#x5B;/u&#x5D;</code></pre>
 
-Nesting is possible, but it won’t be as accurate as when using native HTML elements. In some cases, your syntax
-combination might damage each other.
+Nesting is possible, but it won’t be as accurate as using native HTML elements. In some cases, your syntax combinations
+may damage each other:
 
 <pre><code class="bbcode">&#x5B;b&#x5D;&#x5B;i&#x5D;bold and italic&#x5B;/i&#x5D;&#x5B;/b&#x5D;</code></pre>
 
 #### Code
 
-BBCode syntax and smiley patterns written in the code block will not be touched by the parser. Language classes are
-supported on this extension to be combined with [highlight](https://github.com/mecha-cms/x.highlight) extension and
-such.
+BBCode syntax and smiley patterns written in the code block are not touched by the parser. Language classes are
+supported on this extension to be combined with [Highlight](https://github.com/mecha-cms/x.highlight) extension and
+such:
 
 <pre><code class="bbcode">&#x5B;code&#x5D;
 Code goes here…
@@ -67,15 +68,15 @@ JavaScript code goes here…
 
 #### Image
 
-For security reasons, this syntax will only display images when the image URL has an `.apng`, `.gif`, `.jpeg`, `.jpg`,
-`.png`, `.svg` or `.webp` extension at the end of the name.
+For security reasons, this syntax will only display images if the image URL has an `.apng`, `.avif`, `.gif`, `.jpeg`,
+`.jpg`, `.png`, `.svg`, or `.webp` extension at the end of the name:
 
-<pre><code class="bbcode">&#x5B;img&#x5D;http://127.0.0.1/path/to/image.jpg&#x5B;/img&#x5D;</code></pre>
+<pre><code class="bbcode">&#x5B;img&#x5D;http://127.0.0.1/route/to/image.jpg&#x5B;/img&#x5D;</code></pre>
 
 #### List
 
 Add a number to turn the list into an ordered list. A given number greater than `1` will create a `start` attribute with
-a value of that number added to the generated `<ol>` element. Nesting lists is not possible at this time.
+a value of that number added to the generated `<ol>` element. Nesting lists is not possible at this time:
 
 <pre><code class="bbcode">&#x5B;list&#x5D;
 * List item 1
@@ -95,7 +96,7 @@ a value of that number added to the generated `<ol>` element. Nesting lists is n
 * List item 3
 &#x5B;/list&#x5D;</code></pre>
 
-Several variant syntaxes for lists are available for compatibility reasons.
+Several list syntax variants are available for compatibility reasons:
 
 <pre><code class="bbcode">&#x5B;list&#x5D;
 &#x5B;*&#x5D; List item 1
@@ -122,8 +123,8 @@ Important quote goes here…
 
 #### Smiley
 
-This extension supports a small set of smiley graphics to enhance the appearance without making them look excessive. No
-smiley code will be converted into images if it’s written in the HTML tags or in code blocks.
+This extension supports a small set of smiley graphics to enhance the appearance without making it look excessive. No
+smiley code will be converted to images if it’s written in the HTML tags or code blocks:
 
 <pre><code class="bbcode">:<span>cool</span>: :<span>grin</span>: :<span>hmm</span>: :<span>lol</span>: :<span>mad</span>: :<span>rolleyes</span>: :<span>sad</span>: :<span>smile</span>: :<span>straight</span>: :<span>tongue</span>: :<span>wink</span>: :<span>yikes</span>:</code></pre>
 

@@ -16,6 +16,11 @@ Lorem ipsum [b]broken[/i] sit amet.
 Lorem ipsum [b][i]broken[/b][/i] sit amet.
 
 [code]
+Lorem ipsum dolor sit amet.
+Lorem ipsum dolor sit amet.
+[/code]
+
+[code=js]
 function foo() {
     // Preserve [b]text[/b] and :) here
     return 'bar';
@@ -71,7 +76,7 @@ x( x-( X( X-(
 Lorem ipsum dolor sit amet.
 
 <script>
-alert('Yo!');
+alert('XSS!');
 </script>
 
 [list]

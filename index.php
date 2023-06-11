@@ -22,7 +22,7 @@ function page__content($content) {
                 '[' => '&#x5B;',
                 ']' => '&#x5D;'
             ]);
-            return '<pre><code' . (empty($m[1]) ? "" : ' class="' . \substr($m[1], 1) . '"') . '>' . $m[2] . '</code></pre>';
+            return '<pre><code' . (empty($m[1]) ? "" : ' class="' . \eat(\substr($m[1], 1)) . '"') . '>' . $m[2] . '</code></pre>';
         }, $content);
     }
     if (false !== \strpos($content, '[')) {
@@ -47,7 +47,7 @@ function page__content($content) {
             $content = \preg_replace_callback('/\[img\](' . $test . ')\[\/img\]/u', static function ($m) {
                 // Validate image URL extension
                 $x = \strtolower(\pathinfo($m[1], \PATHINFO_EXTENSION));
-                if (false === \strpos(',apng,gif,jpeg,jpg,png,svg,webp,', ',' . $x . ',')) {
+                if (false === \strpos(',apng,avif,gif,jpeg,jpg,png,svg,webp,', ',' . $x . ',')) {
                     return $m[0];
                 }
                 return '<img alt="' . \basename($m[1]) . '" src="' . $m[1] . '">';
@@ -76,7 +76,7 @@ function page__content($content) {
                     // Recurse!
                     $m[2] = \preg_replace_callback($block_quote, $block_quote_task, $m[2]);
                 }
-                return '<blockquote' . (empty($m[1]) ? "" : 'title="' . \htmlspecialchars($m[1], \ENT_COMPAT | \ENT_HTML5, 'UTF-8', false) . '"') . '>' . $m[2] . '</blockquote>';
+                return '<blockquote' . (empty($m[1]) ? "" : 'title="' . \eat($m[1]) . '"') . '>' . $m[2] . '</blockquote>';
             };
             $content = \preg_replace_callback($block_quote, $block_quote_task, $content);
         }

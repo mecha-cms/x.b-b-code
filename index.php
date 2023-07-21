@@ -64,7 +64,7 @@ function page__content($content) {
                     '/^[ ]*\*[ ]*(.*?)$/m', // `* List item`
                     '/^[ ]*\[\*\][ ]*(.*?)(?:[ ]*\[\/\*\])?$/m' // `[*]List item[/*]` or `[*]List item`
                 ], '<li>$1</li>', $m[2]);
-                $out .= '</' . \explode(' ', $any, 2)[0] . '>';
+                $out .= '</' . \strstr($any, ' ', true) . '>';
                 return \strtr($out, ["\n" => ""]);
             }, $content);
         }

@@ -70,7 +70,7 @@ function page__content($content) {
         }
         // Parse `[quote]` element
         if (false !== \strpos($content, '[/quote]')) {
-            $block_quote = '/\[quote(=[^\s\]]+)?\]\n*((?:(?R)|[\s\S])*?)\n*\[\/quote\]/';
+            $block_quote = '/\[quote(=[^\s\]]+)?\]\n*((?>(?R)|[\s\S])*?)\n*\[\/quote\]/';
             $block_quote_task = static function ($m) use (&$block_quote, &$block_quote_task) {
                 if (false !== \strpos($m[2], '[/quote]')) {
                     // Recurse!

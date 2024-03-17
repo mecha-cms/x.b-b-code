@@ -5,7 +5,7 @@ icon: 'M12.04,2.5L9.53,5H14.53L12.04,2.5M4,7V20H20V7H4M12,0L17,5V5H20A2,2 0 0,1 
 color: '#0f709d'
 author: Taufik Nurrohman
 type: Markdown
-version: 2.0.1
+version: 2.0.2
 ...
 
 [BBCode](https://www.bbcode.org) is short for Bulletin Board Code. It is used as a way for formatting posts made on

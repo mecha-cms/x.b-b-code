@@ -9,7 +9,7 @@ function page__content($content) {
         return $content;
     }
     // Strict URL pattern from <https://gist.github.com/dperini/729294>
-    $test = '(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@|\d{1,3}(?:\.\d{1,3}){3}|(?:(?:[A-Za-z\d\x{00a1}-\x{ffff}]+-?)*[A-Za-z\d\x{00a1}-\x{ffff}]+)(?:\.(?:[A-Za-z\d\x{00a1}-\x{ffff}]+-?)*[A-Za-z\d\x{00a1}-\x{ffff}]+)*(?:\.[A-Za-z\x{00a1}-\x{ffff}]{2,6}))(?::\d+)?(?:[^\s]*)?';
+    $test = '(?>(?>https?|ftp):\/\/)(?>\S+(?>:\S*)?@|\d{1,3}(?>\.\d{1,3}){3}|(?>(?>[A-Za-z\d\x{00a1}-\x{ffff}]+-?)*[A-Za-z\d\x{00a1}-\x{ffff}]+)(?>\.(?:[A-Za-z\d\x{00a1}-\x{ffff}]+-?)*[A-Za-z\d\x{00a1}-\x{ffff}]+)*(?>\.[A-Za-z\x{00a1}-\x{ffff}]{2,6}))(?>:\d+)?(?>[^\s]*)?';
     // Encode all HTML special character(s) once, with no mercy!
     $content = \htmlspecialchars(\n($content), \ENT_COMPAT | \ENT_HTML5, 'UTF-8', false);
     // Parse `[code]` element before everything else!
@@ -26,8 +26,8 @@ function page__content($content) {
         }, $content);
     }
     if (false !== \strpos($content, '[')) {
-        // Parse `[b]`, `[i]`, `[s]` and `[u]` element
-        $span_any = '/\[([bisu])\](.*?)\[\/\1\]/';
+        // Parse `[b]`, `[i]`, `[s]`, and `[u]` element
+        $span_any = '/\[([bisu])\]((?>(?R)|[^]])*?)\[\/\1\]/';
         $span_any_task = static function ($m) use (&$span_any, &$span_any_task) {
             if (false !== \strpos($m[2], '[')) {
                 // Recurse inline element(s)!
@@ -64,7 +64,7 @@ function page__content($content) {
                     '/^[ ]*\*[ ]*(.*?)$/m', // `* List item`
                     '/^[ ]*\[\*\][ ]*(.*?)(?:[ ]*\[\/\*\])?$/m' // `[*]List item[/*]` or `[*]List item`
                 ], '<li>$1</li>', $m[2]);
-                $out .= '</' . \strstr($any, ' ', true) . '>';
+                $out .= '</' . (\strstr($any, ' ', true) ?: $any) . '>';
                 return \strtr($out, ["\n" => ""]);
             }, $content);
         }
@@ -133,7 +133,7 @@ function page__content($content) {
         }
         return \strtr($in, $r);
     };
-    $parts = \preg_split('/(<pre(?:\s[^>]*)?><code(?:\s[^>]*)?>[\s\S]*?<\/code><\/pre>|<[^>]+>)/', $content, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE);
+    $parts = \preg_split('/(<pre(?>\s[^>]*)?><code(?>\s[^>]*)?>[\s\S]*?<\/code><\/pre>|<[^>]+>|' . $test . ')/u', $content, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE);
     $content = ""; // Reset!
     foreach ($parts as $part) {
         if ($part && '<' === $part[0] && \substr($part, -1) === '>') {
@@ -147,9 +147,13 @@ function page__content($content) {
                 ]);
             }
             $content .= $part;
-        } else {
-            $content .= $alter($part);
+            continue;
         }
+        if (false !== \strpos($part, '://') && \preg_match('/^' . $test . '$/u', $part)) {
+            $content .= $part;
+            continue;
+        }
+        $content .= $alter($part);
     }
     return $content;
 }

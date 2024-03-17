@@ -73,6 +73,10 @@ x( x-( X( X-(
 
 :o :-o :O :-O
 
+http://example.com
+
+http ://example.com
+
 Lorem ipsum dolor sit amet.
 
 <script>
